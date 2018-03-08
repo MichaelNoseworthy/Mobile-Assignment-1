@@ -24,7 +24,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
     Canvas canvas;
 
-    SquashCourtView squashCourtView;
+    SlotMachineView SlotMachineView;
 
     /*
     //Sound
@@ -62,6 +62,28 @@ public class MainActivity extends AppCompatActivity {
     boolean racketIsMovingLeft;
     boolean racketIsMovingRight;
 
+    // Slot Machine Variables:
+    int playerMoney = 1000;
+    int winnings = 0;
+    int jackpot = 5000;
+    int turn = 0;
+    int playerBet = 0;
+    int winNumber = 0;
+    int lossNumber = 0;
+    int spinResult;
+    //char fruits = ""; //String?
+    int winRatio = 0;
+    int grapes = 0;  //Change to Star Wars Stuff
+    int bananas = 0;  //Change to Star Wars Stuff
+    int oranges = 0;  //Change to Star Wars Stuff
+    int cherries = 0;  //Change to Star Wars Stuff
+    int bars = 0;  //Change to Star Wars Stuff
+    int bells = 0;  //Change to Star Wars Stuff
+    int sevens = 0;  //Change to Star Wars Stuff
+    int blanks = 0;  //Change to Star Wars Stuff
+
+
+
     //stats
     long lastFrameTime;
     int fps;
@@ -70,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        squashCourtView = new SquashCourtView(this);
-        setContentView(squashCourtView);
+        SlotMachineView = new SlotMachineView(this);
+        setContentView(SlotMachineView);
 
         //Sound code
         /*soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -124,13 +146,13 @@ public class MainActivity extends AppCompatActivity {
         lives = 3;
     }
 
-    class SquashCourtView extends SurfaceView implements Runnable {
+    class SlotMachineView extends SurfaceView implements Runnable {
         Thread ourThread = null;
         SurfaceHolder ourHolder;
-        volatile boolean playingSquash;
+        volatile boolean playingSlots;
         Paint paint;
 
-        public SquashCourtView(Context context) {
+        public SlotMachineView(Context context) {
             super(context);
             ourHolder = getHolder();
             paint = new Paint();
@@ -160,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            while (playingSquash) {
+            while (playingSlots) {
                 updateCourt();
                 drawCourt();
                 controlFPS();
@@ -327,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         public void pause() {
-            playingSquash = false;
+            playingSlots = false;
             try {
                 ourThread.join();
             } catch (InterruptedException e) {
@@ -336,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void resume() {
-            playingSquash = true;
+            playingSlots = true;
             ourThread = new Thread(this);
             ourThread.start();
         }
@@ -375,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         while (true) {
-            squashCourtView.pause();
+            SlotMachineView.pause();
             break;
         }
 
@@ -386,18 +408,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        squashCourtView.resume();
+        SlotMachineView.resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        squashCourtView.pause();
+        SlotMachineView.pause();
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            squashCourtView.pause();
+            SlotMachineView.pause();
             finish();
             return true;
         }
