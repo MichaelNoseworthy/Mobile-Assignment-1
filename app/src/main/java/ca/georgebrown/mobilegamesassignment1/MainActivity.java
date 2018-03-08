@@ -16,6 +16,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import org.xml.sax.Attributes;
+import android.util.FloatMath;
 
 import java.io.IOException;
 import java.util.Random;
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
         volatile boolean playingSlots;
         Paint paint;
 
+
+
         public SlotMachineView(Context context) {
             super(context);
             ourHolder = getHolder();
@@ -142,6 +146,116 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        /*
+        class Vector3 implements Cloneable
+        {
+            public float x;
+            public float y;
+            public float z;
+
+            public Vector3()
+            {
+                x = 0.0f;
+                y = 0.0f;
+                z = 0.0f;
+            }
+
+
+            public Vector3(float x, float y, float z)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+
+            public Vector3 add(Vector3 rhs)
+            {
+                return new Vector3(
+                        this.x + rhs.x, this.y + rhs.y, this.z + rhs.z);
+            }
+
+            public Vector3 sub(Vector3 rhs)
+            {
+                return new Vector3(
+                        this.x - rhs.x, this.y - rhs.y, this.z - rhs.z);
+            }
+
+            public void subFromSelf(Vector3 rhs)
+            {
+                x -= rhs.x;
+                y -= rhs.y;
+                x -= rhs.z;
+            }
+
+            public void normalize()
+            {
+                float l = length();
+
+                x /= l;
+                y /= l;
+                z /= l;
+            }
+
+
+            public float length()
+            {
+                return FloatMath.sqrt(x*x + y*y + z*z);
+            }
+
+
+            public Vector3 mul(float fScaler)
+            {
+                return new Vector3(
+                        x*fScaler, y*fScaler, z*fScaler);
+            }
+
+            public void copy(Vector3 rhs)
+            {
+                x = rhs.x;
+                y = rhs.y;
+                z = rhs.z;
+            }
+
+
+            public void mulSelf(float fScaler)
+            {
+                x *= fScaler;
+                y *= fScaler;
+                z *= fScaler;
+            }
+
+
+            public Vector3 crossProduct(Vector3 rhs)
+            {
+                return new Vector3(
+                        y*rhs.z - z*rhs.y,
+                        z*rhs.x - x*rhs.z,
+                        x*rhs.y - y*rhs.x);
+            }
+
+            public float dot(Vector3 rhs)
+            {
+                return x*rhs.x + y*rhs.y + z*rhs.z;
+            }
+
+            public Object clone()
+            {
+                return new Vector3(x, y, z);
+            }
+
+
+            public String toString()
+            {
+                StringBuilder result = new StringBuilder();
+                result.append("(" + x + ", " + y + ", " + z + ")" );
+                return result.toString();
+            }
+
+
+
+
+        }*/
+
         //Slot class:
 
         public class PlaySlotGame{
@@ -149,6 +263,16 @@ public class MainActivity extends AppCompatActivity {
             int value = 0; //assuming these are ints during int
             int lowerBounds = 0; //assuming these are ints during int
             int upperBounds = 0; //assuming these are ints during int
+            String message;
+
+            public void myDrawText(String message, int textSize, int Red, int Green, int Blue, int X, int Y){
+
+                paint.setColor(Color.argb(255, Red, Green, Blue));
+                paint.setTextSize(textSize);
+                canvas.drawText(message, X, Y, paint);
+            }
+
+
 
 
             // Utility function to show Player Stats
@@ -198,6 +322,9 @@ public class MainActivity extends AppCompatActivity {
                 double jackPotTry = Math.floor(Math.random() * 51 + 1);
                 double jackPotWin = Math.floor(Math.random() * 51 + 1);
                 if (jackPotTry == jackPotWin) {
+                    paint.setColor(Color.argb(255, 255, 255, 255));//white
+                    paint.setTextSize(45);
+                    canvas.drawText("You Won the $" + jackpot + " Jackpot!!", 20, 500, paint);
                     //alert("You Won the $" + jackpot + " Jackpot!!"); //Call to paint!
                     playerMoney += jackpot;
                     jackpot = 1000;
@@ -239,12 +366,16 @@ public class MainActivity extends AppCompatActivity {
 //e.g. Bar - Orange - Banana
             void Reels() { //Really need to rework this code.  Leaving out for now.
                 //string betLine = [" ", " ", " "]; //something to figure out
+                double outCome = 0;
+
                 /*
-                int outCome[] = [0, 0, 0];
+
+
+
 
                 for (int spin = 0; spin < 3; spin++) {
-                    outCome[spin] = Math.floor((Math.random() * 65) + 1);
-                    switch (outCome[spin]) {
+                    outCome = Math.floor((Math.random() * 65) + 1);
+                    switch (outCome) {
                         case checkRange(outCome[spin], 1, 27):  // 41.5% probability
                             betLine[spin] = "blank";
                             blanks++;
@@ -521,7 +652,11 @@ public class MainActivity extends AppCompatActivity {
                 */
                 canvas.drawText("Jackpot: " + jackpot + " playerTurn: " + turn, 20, 105, paint);
                 canvas.drawText("playerLosses: " + lossNumber + " playerWins: " + winNumber, 20, 185, paint);
+                paint.setColor(Color.argb(255, 255, 255, 255));
+                paint.setTextSize(75);
                 canvas.drawText("playerWinRatio " + (winRatio * 100) + "%", 20, 265, paint);
+
+                //canvas.drawText("You Won the $" + jackpot + " Jackpot!!", 20, 500, paint); //test code
 
 
                 /*
