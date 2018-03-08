@@ -43,24 +43,7 @@ public class MainActivity extends AppCompatActivity {
     int screenWidth;
     int screenHeight;
 
-    //!!Candidates for class!!!
-    //Game objects
-    int racketWidth;
-    int racketHeight;
-    Point racketPosition;
 
-    Point ballPosition;
-    int ballWidth;
-
-    //for ball movement
-    boolean ballIsMovingLeft;
-    boolean ballIsMovingRight;
-    boolean ballIsMovingUp;
-    boolean ballIsMovingDown;
-
-    //for racket movement
-    boolean racketIsMovingLeft;
-    boolean racketIsMovingRight;
 
     // Slot Machine Variables:
     int playerMoney = 1000;
@@ -89,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
     //stats
     long lastFrameTime;
     int fps;
-    int score;
-    int lives;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,19 +115,6 @@ public class MainActivity extends AppCompatActivity {
         screenHeight = size.y;
 
 
-        //The game objects
-        racketPosition = new Point();
-        racketPosition.x = screenWidth / 2;
-        racketPosition.y = screenHeight - 20;
-        racketWidth = screenWidth / 8;
-        racketHeight = 10;
-
-        ballWidth = screenWidth / 35;
-        ballPosition = new Point();
-        ballPosition.x = screenWidth / 2;
-        ballPosition.y = 1 + ballWidth;
-
-        lives = 3;
     }
 
     class SlotMachineView extends SurfaceView implements Runnable {
@@ -158,26 +127,6 @@ public class MainActivity extends AppCompatActivity {
             super(context);
             ourHolder = getHolder();
             paint = new Paint();
-            ballIsMovingDown = true;
-
-            Random randomNumber = new Random();
-            int ballDirection = randomNumber.nextInt(3);
-            switch (ballDirection) {
-                case 0:
-                    ballIsMovingLeft = true;
-                    ballIsMovingRight = false;
-                    break;
-
-                case 1:
-                    ballIsMovingRight = true;
-                    ballIsMovingLeft = false;
-                    break;
-
-                case 2:
-                    ballIsMovingLeft = false;
-                    ballIsMovingRight = false;
-                    break;
-            }
 
 
         }
@@ -557,11 +506,25 @@ public class MainActivity extends AppCompatActivity {
                 canvas = ourHolder.lockCanvas();
                 //Paint paint = new Paint();
                 canvas.drawColor(Color.BLACK);//the background
-                paint.setColor(Color.argb(255, 255, 255, 255));
+                paint.setColor(Color.argb(255, 0, 255, 255));
                 paint.setTextSize(45);
-                canvas.drawText("Score:" + score + " Lives:" + lives + " fps:" + fps, 20, 40, paint);
+                canvas.drawText("Money:" + playerMoney + " Winnings: " + winnings + " fps:" + fps, 20, 40, paint);
 
 
+                /*
+                $("#jackpot").text("Jackpot: " + jackpot);
+                $("#playerMoney").text("Player Money: " + playerMoney);
+                $("#playerTurn").text("Turn: " + turn);
+                $("#playerWins").text("Wins: " + winNumber);
+                $("#playerLosses").text("Losses: " + lossNumber);
+                $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
+                */
+                canvas.drawText("Jackpot: " + jackpot + " playerTurn: " + turn, 20, 105, paint);
+                canvas.drawText("playerLosses: " + lossNumber + " playerWins: " + winNumber, 20, 185, paint);
+                canvas.drawText("playerWinRatio " + (winRatio * 100) + "%", 20, 265, paint);
+
+
+                /*
                 //Draw the squash racket
                 canvas.drawRect(racketPosition.x - (racketWidth / 2),
                         racketPosition.y - (racketHeight / 2), racketPosition.x + (racketWidth / 2),
@@ -570,6 +533,7 @@ public class MainActivity extends AppCompatActivity {
                 //Draw the ball
                 canvas.drawRect(ballPosition.x, ballPosition.y,
                         ballPosition.x + ballWidth, ballPosition.y + ballWidth, paint);
+                */
 
 
                 ourHolder.unlockCanvasAndPost(canvas);
@@ -615,27 +579,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onTouchEvent(MotionEvent motionEvent) {
 
+
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
 
                     if (motionEvent.getX() >= screenWidth / 2) {
-                        racketIsMovingRight = true;
-                        racketIsMovingLeft = false;
+                        //racketIsMovingRight = true;
+                        //racketIsMovingLeft = false;
                     } else {
-                        racketIsMovingLeft = true;
-                        racketIsMovingRight = false;
+                        //racketIsMovingLeft = true;
+                        //racketIsMovingRight = false;
                     }
 
                     break;
 
 
                 case MotionEvent.ACTION_UP:
-                    racketIsMovingRight = false;
-                    racketIsMovingLeft = false;
+                    //racketIsMovingRight = false;
+                    //racketIsMovingLeft = false;
                     break;
             }
             return true;
         }
+
 
 
     }
