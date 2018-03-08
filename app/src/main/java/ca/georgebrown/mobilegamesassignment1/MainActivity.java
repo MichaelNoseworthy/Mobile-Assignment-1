@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Canvas canvas;
 
     SlotMachineView SlotMachineView;
-
+//Hi
     /*
     //Sound
     //initialize sound variables
