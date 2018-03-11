@@ -16,8 +16,11 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+
 import org.xml.sax.Attributes;
 import android.util.FloatMath;
+
 
 import java.io.IOException;
 import java.util.Random;
@@ -58,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
     int spinResult;
     //char fruits = ""; //String?
     int winRatio = 0;
-    int grapes = 0;  //Change to Star Wars Stuff
-    int bananas = 0;  //Change to Star Wars Stuff
-    int oranges = 0;  //Change to Star Wars Stuff
-    int cherries = 0;  //Change to Star Wars Stuff
-    int bars = 0;  //Change to Star Wars Stuff
-    int bells = 0;  //Change to Star Wars Stuff
-    int sevens = 0;  //Change to Star Wars Stuff
-    int blanks = 0;  //Change to Star Wars Stuff
+    int xwing = 0;
+    int atat = 0;
+    int blaster = 0;
+    int lightsaber = 0;
+    int vader = 0;  //bars
+    int c3po = 0;
+    int r2d2 = 0;
+    int stormtroopers = 0;  //blanks
 
 
 
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         //Get the screen size in pixels
         display = getWindowManager().getDefaultDisplay();
         size = new Point();
-        display.getSize(size);
+       // display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
 
@@ -124,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         SurfaceHolder ourHolder;
         volatile boolean playingSlots;
         Paint paint;
+
+
+
 
 
 
@@ -146,7 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        /*
+
+
+
+
+
         class Vector3 implements Cloneable
         {
             public float x;
@@ -187,20 +197,20 @@ public class MainActivity extends AppCompatActivity {
                 x -= rhs.z;
             }
 
-            public void normalize()
+          /*  public void normalize()
             {
                 float l = length();
 
                 x /= l;
                 y /= l;
                 z /= l;
-            }
+            } */
 
 
-            public float length()
+           /* public float length()
             {
                 return FloatMath.sqrt(x*x + y*y + z*z);
-            }
+            } */
 
 
             public Vector3 mul(float fScaler)
@@ -254,7 +264,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        }*/
+        }
+
 
         //Slot class:
 
@@ -263,6 +274,8 @@ public class MainActivity extends AppCompatActivity {
             int value = 0; //assuming these are ints during int
             int lowerBounds = 0; //assuming these are ints during int
             int upperBounds = 0; //assuming these are ints during int
+
+
             String message;
 
             public void myDrawText(String message, int textSize, int Red, int Green, int Blue, int X, int Y){
@@ -271,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 paint.setTextSize(textSize);
                 canvas.drawText(message, X, Y, paint);
             }
+
 
 
 
@@ -290,17 +304,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-// Utility function to reset all fruit tallies
+// Utility function to reset all "fruit" tallies
 
             void resetFruitTally() {
-                grapes = 0;
-                bananas = 0;
-                oranges = 0;
-                cherries = 0;
-                bars = 0;
-                bells = 0;
-                sevens = 0;
-                blanks = 0;
+                xwing = 0;
+                atat = 0;
+                blaster = 0;
+                lightsaber = 0;
+                vader = 0;
+                c3po = 0;
+                r2d2 = 0;
+                stormtroopers = 0;
             }
 
 // Utility function to reset the player stats
@@ -322,9 +336,12 @@ public class MainActivity extends AppCompatActivity {
                 double jackPotTry = Math.floor(Math.random() * 51 + 1);
                 double jackPotWin = Math.floor(Math.random() * 51 + 1);
                 if (jackPotTry == jackPotWin) {
+
+
                     paint.setColor(Color.argb(255, 255, 255, 255));//white
                     paint.setTextSize(45);
                     canvas.drawText("You Won the $" + jackpot + " Jackpot!!", 20, 500, paint);
+
                     //alert("You Won the $" + jackpot + " Jackpot!!"); //Call to paint!
                     playerMoney += jackpot;
                     jackpot = 1000;
@@ -366,6 +383,14 @@ public class MainActivity extends AppCompatActivity {
 //e.g. Bar - Orange - Banana
             void Reels() { //Really need to rework this code.  Leaving out for now.
                 //string betLine = [" ", " ", " "]; //something to figure out
+
+                /*
+                int outCome[] = [0, 0, 0];
+
+                for (int spin = 0; spin < 3; spin++) {
+                    outCome[spin] = Math.floor((Math.random() * 65) + 1);
+                    switch (outCome[spin]) {
+
                 double outCome = 0;
 
                 /*
@@ -376,37 +401,38 @@ public class MainActivity extends AppCompatActivity {
                 for (int spin = 0; spin < 3; spin++) {
                     outCome = Math.floor((Math.random() * 65) + 1);
                     switch (outCome) {
+
                         case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                            betLine[spin] = "blank";
-                            blanks++;
+                            betLine[spin] = "Stormtroopers";
+                            stormtroopers++;
                             break;
                         case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                            betLine[spin] = "Grapes";
-                            grapes++;
+                            betLine[spin] = "Xwing";
+                            xwing++;
                             break;
                         case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                            betLine[spin] = "Banana";
-                            bananas++;
+                            betLine[spin] = "ATAT";
+                            atat++;
                             break;
                         case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                            betLine[spin] = "Orange";
-                            oranges++;
+                            betLine[spin] = "Blaster";
+                            blaster++;
                             break;
                         case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                            betLine[spin] = "Cherry";
-                            cherries++;
+                            betLine[spin] = "Lightsaber";
+                            lightsaber++;
                             break;
                         case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                            betLine[spin] = "Bar";
-                            bars++;
+                            betLine[spin] = "Vader";
+                            vader++;
                             break;
                         case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                            betLine[spin] = "Bell";
-                            bells++;
+                            betLine[spin] = "C3P0";
+                            c3po++;
                             break;
                         case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                            betLine[spin] = "Seven";
-                            sevens++;
+                            betLine[spin] = "R2D2";
+                            r2d2++;
                             break;
                     }
                 }
@@ -417,51 +443,51 @@ public class MainActivity extends AppCompatActivity {
 // This function calculates the player's winnings, if any
             void determineWinnings()
             {
-                if (blanks == 0)
+                if (stormtroopers == 0)
                 {
-                    if (grapes == 3) {
+                    if (xwing == 3) {
                         winnings = playerBet * 10;
                     }
-                    else if(bananas == 3) {
+                    else if(atat == 3) {
                         winnings = playerBet * 20;
                     }
-                    else if (oranges == 3) {
+                    else if (blaster == 3) {
                         winnings = playerBet * 30;
                     }
-                    else if (cherries == 3) {
+                    else if (lightsaber == 3) {
                         winnings = playerBet * 40;
                     }
-                    else if (bars == 3) {
+                    else if (vader == 3) {
                         winnings = playerBet * 50;
                     }
-                    else if (bells == 3) {
+                    else if (c3po == 3) {
                         winnings = playerBet * 75;
                     }
-                    else if (sevens == 3) {
+                    else if (r2d2 == 3) {
                         winnings = playerBet * 100;
                     }
-                    else if (grapes == 2) {
+                    else if (xwing == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (bananas == 2) {
+                    else if (atat == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (oranges == 2) {
+                    else if (blaster == 2) {
                         winnings = playerBet * 3;
                     }
-                    else if (cherries == 2) {
+                    else if (lightsaber == 2) {
                         winnings = playerBet * 4;
                     }
-                    else if (bars == 2) {
+                    else if (vader == 2) {
                         winnings = playerBet * 5;
                     }
-                    else if (bells == 2) {
+                    else if (c3po == 2) {
                         winnings = playerBet * 10;
                     }
-                    else if (sevens == 2) {
+                    else if (r2d2 == 2) {
                         winnings = playerBet * 20;
                     }
-                    else if (sevens == 1) {
+                    else if (r2d2 == 1) {
                         winnings = playerBet * 5;
                     }
                     else {
@@ -518,117 +544,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            /*
-            if (racketIsMovingRight) {
-                racketPosition.x = racketPosition.x + 10;
-            }
 
-            if (racketIsMovingLeft) {
-                racketPosition.x = racketPosition.x - 10;
-            }
-
-
-            //detect collisions
-
-            //hit right of screen
-            if (ballPosition.x + ballWidth > screenWidth) {
-                ballIsMovingLeft = true;
-                ballIsMovingRight = false;
-                //soundPool.play(sample1, 1, 1, 0, 0, 1);
-            }
-
-            //hit left of screen
-            if (ballPosition.x < 0) {
-                ballIsMovingLeft = false;
-                ballIsMovingRight = true;
-                //soundPool.play(sample1, 1, 1, 0, 0, 1);
-            }
-
-            //Edge of ball has hit bottom of screen
-            if (ballPosition.y > screenHeight - ballWidth) {
-                lives = lives - 1;
-                if (lives == 0) {
-                    lives = 3;
-                    score = 0;
-                    //soundPool.play(sample4, 1, 1, 0, 0, 1);
-                }
-                ballPosition.y = 1 + ballWidth;//back to top of screen
-
-                //what horizontal direction should we use
-                //for the next falling ball
-                Random randomNumber = new Random();
-                int startX = randomNumber.nextInt(screenWidth - ballWidth) + 1;
-                ballPosition.x = startX + ballWidth;
-
-                int ballDirection = randomNumber.nextInt(3);
-                switch (ballDirection) {
-                    case 0:
-                        ballIsMovingLeft = true;
-                        ballIsMovingRight = false;
-                        break;
-
-                    case 1:
-                        ballIsMovingRight = true;
-                        ballIsMovingLeft = false;
-                        break;
-
-                    case 2:
-                        ballIsMovingLeft = false;
-                        ballIsMovingRight = false;
-                        break;
-                }
-            }
-
-            //we hit the top of the screen
-            if (ballPosition.y <= 0) {
-                ballIsMovingDown = true;
-                ballIsMovingUp = false;
-                ballPosition.y = 1;
-                //soundPool.play(sample2, 1, 1, 0, 0, 1);
-            }
-
-            //depending upon the two directions we should be
-            //moving in adjust our x any positions
-            if (ballIsMovingDown) {
-                ballPosition.y += 6;
-            }
-
-            if (ballIsMovingUp) {
-                ballPosition.y -= 10;
-            }
-
-            if (ballIsMovingLeft) {
-                ballPosition.x -= 12;
-            }
-
-            if (ballIsMovingRight) {
-                ballPosition.x += 12;
-            }
-
-            //Has ball hit racket
-            if (ballPosition.y + ballWidth >= (racketPosition.y - racketHeight / 2)) {
-                int halfRacket = racketWidth / 2;
-                if (ballPosition.x + ballWidth > (racketPosition.x - halfRacket)
-                        && ballPosition.x - ballWidth < (racketPosition.x + halfRacket)) {
-                    //rebound the ball and play a sound
-                    //soundPool.play(sample3, 1, 1, 0, 0, 1);
-                    score++;
-                    ballIsMovingUp = true;
-                    ballIsMovingDown = false;
-                    //now decide how to rebound the ball
-                    if (ballPosition.x > racketPosition.x) {
-                        ballIsMovingRight = true;
-                        ballIsMovingLeft = false;
-
-                    } else {
-                        ballIsMovingRight = false;
-                        ballIsMovingLeft = true;
-                    }
-
-                }
-            }
-
-            */
         }
 
         public void drawCourt() {
@@ -652,23 +568,15 @@ public class MainActivity extends AppCompatActivity {
                 */
                 canvas.drawText("Jackpot: " + jackpot + " playerTurn: " + turn, 20, 105, paint);
                 canvas.drawText("playerLosses: " + lossNumber + " playerWins: " + winNumber, 20, 185, paint);
+// HEAD
+                canvas.drawText("playerWinRatio " + (winRatio * 100) + "%", 20, 265, paint);
+
+
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 paint.setTextSize(75);
                 canvas.drawText("playerWinRatio " + (winRatio * 100) + "%", 20, 265, paint);
 
                 //canvas.drawText("You Won the $" + jackpot + " Jackpot!!", 20, 500, paint); //test code
-
-
-                /*
-                //Draw the squash racket
-                canvas.drawRect(racketPosition.x - (racketWidth / 2),
-                        racketPosition.y - (racketHeight / 2), racketPosition.x + (racketWidth / 2),
-                        racketPosition.y + racketHeight, paint);
-
-                //Draw the ball
-                canvas.drawRect(ballPosition.x, ballPosition.y,
-                        ballPosition.x + ballWidth, ballPosition.y + ballWidth, paint);
-                */
 
 
                 ourHolder.unlockCanvasAndPost(canvas);
