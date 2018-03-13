@@ -58,18 +58,24 @@ public class MainActivity extends AppCompatActivity {
     int spinResult;
     //char fruits = ""; //String?
     int winRatio = 0;
-    int grapes = 0;  //Change to Star Wars Stuff
-    int bananas = 0;  //Change to Star Wars Stuff
-    int oranges = 0;  //Change to Star Wars Stuff
-    int cherries = 0;  //Change to Star Wars Stuff
-    int bars = 0;  //Change to Star Wars Stuff
-    int bells = 0;  //Change to Star Wars Stuff
-    int sevens = 0;  //Change to Star Wars Stuff
-    int blanks = 0;  //Change to Star Wars Stuff
 
+    //types of reels:
+    int xwing = 0;
+    int atat = 0;
+    int blasters = 0;
+    int lightsaber = 0;
+    int vader = 0;
+    int c3po = 0;
+    int r2d2 = 0;
+    int stormtroopers = 0;
 
-
-
+    //Reels:
+    //Top
+    int spin11 =0; int spin12 =0; int spin13 =0;
+    //Middle
+    int spin21 =0; int spin22 =0; int spin23 =0;
+    //Bottom
+    int spin31 =0; int spin32 =0; int spin33 =0;
 
     //stats
     long lastFrameTime;
@@ -106,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             //catch exceptions here
         }
-
         */
 
         //Get the screen size in pixels
@@ -115,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
-
-
     }
 
     class SlotMachineView extends SurfaceView implements Runnable {
@@ -125,14 +128,10 @@ public class MainActivity extends AppCompatActivity {
         volatile boolean playingSlots;
         Paint paint;
 
-
-
         public SlotMachineView(Context context) {
             super(context);
             ourHolder = getHolder();
             paint = new Paint();
-
-
         }
 
         @Override
@@ -141,12 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 updateCourt();
                 drawCourt();
                 controlFPS();
-
             }
-
         }
-
-
 
 
         //Slot class:
@@ -186,14 +181,14 @@ public class MainActivity extends AppCompatActivity {
 // Utility function to reset all fruit tallies
 
             void resetFruitTally() {
-                grapes = 0;
-                bananas = 0;
-                oranges = 0;
-                cherries = 0;
-                bars = 0;
-                bells = 0;
-                sevens = 0;
-                blanks = 0;
+                xwing = 0;
+                atat = 0;
+                blasters = 0;
+                lightsaber = 0;
+                vader = 0;  //bars
+                c3po = 0;
+                r2d2 = 0;
+                stormtroopers = 0;  //blanks
             }
 
 // Utility function to reset the player stats
@@ -243,75 +238,82 @@ public class MainActivity extends AppCompatActivity {
 
 
 // Utility function to check if a value falls within a range of bounds
-            int checkRange(int value, int lowerBounds, int upperBounds) { //assuming these are ints during init
+            boolean checkRange(int value, int lowerBounds, int upperBounds) { //assuming these are ints during init
                 if (value >= lowerBounds && value <= upperBounds)
                 {
-                    return value;
+                    return true;
                 }
                 else {
-                    //return !value;  // Converted from javascript...might be wrong.
-                    return 0;
+
+                    return false;
                 }
             }
 
+// Spinning the reels
+            void Reels() {
 
-// When this function is called it determines the betLine results.
-//e.g. Bar - Orange - Banana
-            void Reels() { //Really need to rework this code.  Leaving out for now.
-                //string betLine = [" ", " ", " "]; //something to figure out
-                double outCome = 0;
+                //Start the randomization process:
+                //Top
+                spin11 = (int)Math.floor((Math.random() * 65) + 1);
+                spin12 = (int)Math.floor((Math.random() * 65) + 1);
+                spin13 = (int)Math.floor((Math.random() * 65) + 1);
+                //Middle
+                spin21 = (int)Math.floor((Math.random() * 65) + 1);
+                spin22 = (int)Math.floor((Math.random() * 65) + 1);
+                spin23 = (int)Math.floor((Math.random() * 65) + 1);
+                //Bottom?
+                spin31 = (int)Math.floor((Math.random() * 65) + 1);
+                spin32 = (int)Math.floor((Math.random() * 65) + 1);
+                spin33 = (int)Math.floor((Math.random() * 65) + 1);
 
+                int[] reelList = new int[]{
+                        spin11,
+                        spin12,
+                        spin13,
+                        spin21,
+                        spin22,
+                        spin23,
+                        spin31,
+                        spin32,
+                        spin33,
+                };
 
-
-                /*
-
-
-
-
-                for (int spin = 0; spin < 3; spin++) {
-                    outCome = Math.floor((Math.random() * 65) + 1);
-                    switch (outCome) {
-                        case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                            betLine[spin] = "blank";
-                            blanks++;
-                            break;
-                        case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                            betLine[spin] = "Grapes";
-                            grapes++;
-                            break;
-                        case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                            betLine[spin] = "Banana";
-                            bananas++;
-                            break;
-                        case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                            betLine[spin] = "Orange";
-                            oranges++;
-                            break;
-                        case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                            betLine[spin] = "Cherry";
-                            cherries++;
-                            break;
-                        case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                            betLine[spin] = "Bar";
-                            bars++;
-                            break;
-                        case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                            betLine[spin] = "Bell";
-                            bells++;
-                            break;
-                        case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                            betLine[spin] = "Seven";
-                            sevens++;
-                            break;
+                //Below is only half done.  Need to test code before I finish.
+                for (int index = 0; index < reelList.length; index++) {
+                    if (index >= 1 && index <= 27) {
+                        xwing++;
+                    } else if (reelList[index] >= 28 && reelList[index] <= 37) {
+                        atat++;
+                    } else if (reelList[index] >= 38 && reelList[index] <= 46) {
+                        blasters++;
+                    } else if (reelList[index] >= 47 && reelList[index] <= 54) {
+                        vader++;
+                    } else if (reelList[index] >= 55 && reelList[index] <= 59) {
+                        c3po++;
+                    } else if (reelList[index] >= 60 && reelList[index] <= 62) {
+                        stormtroopers++;
+                    } else if (reelList[index] >= 63 && reelList[index] <= 64) {
+                        lightsaber++;
+                    } else if (reelList[index] >= 65 && reelList[index] <= 65) {
+                        r2d2++;
                     }
                 }
-                return betLine;
-                */
             }
 
 // This function calculates the player's winnings, if any
             void determineWinnings()
             {
+
+                /*
+                xwing = 0;
+                atat = 0;
+                blasters = 0;
+                vader = 0;
+                c3po = 0;
+                stormtroopers = 0;
+                lightsaber = 0;
+                r2d2 = 0;
+
                 if (blanks == 0)
                 {
                     if (grapes == 3) {
@@ -370,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
                     lossNumber++;
                     showLossMessage();
                 }
-
+*/
             }
             /*
 // When the player clicks the spin button the game kicks off
@@ -409,10 +411,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         public void updateCourt() {
-
-
-
-
             /*
             if (racketIsMovingRight) {
                 racketPosition.x = racketPosition.x + 10;
@@ -522,7 +520,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-
             */
         }
 
@@ -535,7 +532,6 @@ public class MainActivity extends AppCompatActivity {
                 paint.setColor(Color.argb(255, 0, 255, 255));
                 paint.setTextSize(45);
                 canvas.drawText("Money:" + playerMoney + " Winnings: " + winnings + " fps:" + fps, 20, 40, paint);
-
 
                 /*
                 $("#jackpot").text("Jackpot: " + jackpot);
@@ -553,7 +549,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //canvas.drawText("You Won the $" + jackpot + " Jackpot!!", 20, 500, paint); //test code
 
-
                 /*
                 //Draw the squash racket
                 canvas.drawRect(racketPosition.x - (racketWidth / 2),
@@ -564,7 +559,6 @@ public class MainActivity extends AppCompatActivity {
                 canvas.drawRect(ballPosition.x, ballPosition.y,
                         ballPosition.x + ballWidth, ballPosition.y + ballWidth, paint);
                 */
-
 
                 ourHolder.unlockCanvasAndPost(canvas);
             }
@@ -620,9 +614,7 @@ public class MainActivity extends AppCompatActivity {
                         //racketIsMovingLeft = true;
                         //racketIsMovingRight = false;
                     }
-
                     break;
-
 
                 case MotionEvent.ACTION_UP:
                     //racketIsMovingRight = false;
@@ -644,7 +636,6 @@ public class MainActivity extends AppCompatActivity {
             SlotMachineView.pause();
             break;
         }
-
         finish();
     }
 
