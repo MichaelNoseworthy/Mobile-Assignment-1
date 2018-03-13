@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
     int spinResult;
     //char fruits = ""; //String?
     int winRatio = 0;
-    int grapes = 0;  //Change to Star Wars Stuff
-    int bananas = 0;  //Change to Star Wars Stuff
-    int oranges = 0;  //Change to Star Wars Stuff
-    int cherries = 0;  //Change to Star Wars Stuff
-    int bars = 0;  //Change to Star Wars Stuff
-    int bells = 0;  //Change to Star Wars Stuff
-    int sevens = 0;  //Change to Star Wars Stuff
-    int blanks = 0;  //Change to Star Wars Stuff
+    int xwing = 0;
+    int atat = 0;
+    int blasters = 0;
+    int lightsaber = 0;
+    int vader = 0;  //bars
+    int c3po = 0;
+    int r2d2 = 0;
+    int stormtroopers = 0;  //blanks
 
 
 
@@ -186,14 +186,14 @@ public class MainActivity extends AppCompatActivity {
 // Utility function to reset all fruit tallies
 
             void resetFruitTally() {
-                grapes = 0;
-                bananas = 0;
-                oranges = 0;
-                cherries = 0;
-                bars = 0;
-                bells = 0;
-                sevens = 0;
-                blanks = 0;
+                xwing = 0;
+                atat = 0;
+                blasters = 0;
+                lightsaber = 0;
+                vader = 0;
+                c3po = 0;
+                r2d2 = 0;
+                stormtroopers = 0;
             }
 
 // Utility function to reset the player stats
@@ -312,51 +312,51 @@ public class MainActivity extends AppCompatActivity {
 // This function calculates the player's winnings, if any
             void determineWinnings()
             {
-                if (blanks == 0)
+                if (stormtroopers == 0)
                 {
-                    if (grapes == 3) {
+                    if (xwing == 3) {
                         winnings = playerBet * 10;
                     }
-                    else if(bananas == 3) {
+                    else if(atat == 3) {
                         winnings = playerBet * 20;
                     }
-                    else if (oranges == 3) {
+                    else if (blasters == 3) {
                         winnings = playerBet * 30;
                     }
-                    else if (cherries == 3) {
+                    else if (lightsaber == 3) {
                         winnings = playerBet * 40;
                     }
-                    else if (bars == 3) {
+                    else if (vader == 3) {
                         winnings = playerBet * 50;
                     }
-                    else if (bells == 3) {
+                    else if (c3po == 3) {
                         winnings = playerBet * 75;
                     }
-                    else if (sevens == 3) {
+                    else if (r2d2 == 3) {
                         winnings = playerBet * 100;
                     }
-                    else if (grapes == 2) {
+                    else if (xwing == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (bananas == 2) {
+                    else if (atat == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (oranges == 2) {
+                    else if (blasters == 2) {
                         winnings = playerBet * 3;
                     }
-                    else if (cherries == 2) {
+                    else if (lightsaber == 2) {
                         winnings = playerBet * 4;
                     }
-                    else if (bars == 2) {
+                    else if (vader == 2) {
                         winnings = playerBet * 5;
                     }
-                    else if (bells == 2) {
+                    else if (c3po == 2) {
                         winnings = playerBet * 10;
                     }
-                    else if (sevens == 2) {
+                    else if (r2d2 == 2) {
                         winnings = playerBet * 20;
                     }
-                    else if (sevens == 1) {
+                    else if (r2d2 == 1) {
                         winnings = playerBet * 5;
                     }
                     else {
