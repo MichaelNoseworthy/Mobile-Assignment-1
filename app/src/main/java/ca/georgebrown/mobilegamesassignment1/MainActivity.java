@@ -316,49 +316,49 @@ public class MainActivity extends AppCompatActivity {
 
                 if (blanks == 0)
                 {
-                    if (grapes == 3) {
+                    if (xwing == 3) {
                         winnings = playerBet * 10;
                     }
-                    else if(bananas == 3) {
+                    else if(atat == 3) {
                         winnings = playerBet * 20;
                     }
-                    else if (oranges == 3) {
+                    else if (blasters == 3) {
                         winnings = playerBet * 30;
                     }
-                    else if (cherries == 3) {
+                    else if (lightsaber == 3) {
                         winnings = playerBet * 40;
                     }
-                    else if (bars == 3) {
+                    else if (vader == 3) {
                         winnings = playerBet * 50;
                     }
-                    else if (bells == 3) {
+                    else if (c3po == 3) {
                         winnings = playerBet * 75;
                     }
-                    else if (sevens == 3) {
+                    else if (r2d2 == 3) {
                         winnings = playerBet * 100;
                     }
-                    else if (grapes == 2) {
+                    else if (xwing == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (bananas == 2) {
+                    else if (atat == 2) {
                         winnings = playerBet * 2;
                     }
-                    else if (oranges == 2) {
+                    else if (blasters == 2) {
                         winnings = playerBet * 3;
                     }
-                    else if (cherries == 2) {
+                    else if (lightsaber == 2) {
                         winnings = playerBet * 4;
                     }
-                    else if (bars == 2) {
+                    else if (vader == 2) {
                         winnings = playerBet * 5;
                     }
-                    else if (bells == 2) {
+                    else if (c3po == 2) {
                         winnings = playerBet * 10;
                     }
-                    else if (sevens == 2) {
+                    else if (r2d2 == 2) {
                         winnings = playerBet * 20;
                     }
-                    else if (sevens == 1) {
+                    else if (r2d2 == 1) {
                         winnings = playerBet * 5;
                     }
                     else {
