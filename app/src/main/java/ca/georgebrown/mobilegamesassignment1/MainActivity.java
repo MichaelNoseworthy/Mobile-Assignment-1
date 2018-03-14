@@ -186,33 +186,32 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
         @Override
                 public void onClick(View view) {
-            if (isStarted) {
-                wheel11.stopWheel();
-                wheel12.stopWheel();
-                wheel13.stopWheel();
-                wheel21.stopWheel();
-                wheel22.stopWheel();
-                wheel23.stopWheel();
-                wheel31.stopWheel();
-                wheel32.stopWheel();
-                wheel33.stopWheel();
+            if (playerMoney > 0) {
+                if (isStarted) {
+                    wheel11.stopWheel();
+                    wheel12.stopWheel();
+                    wheel13.stopWheel();
+                    wheel21.stopWheel();
+                    wheel22.stopWheel();
+                    wheel23.stopWheel();
+                    wheel31.stopWheel();
+                    wheel32.stopWheel();
+                    wheel33.stopWheel();
 
-                if ((wheel11.currentIndex == wheel12.currentIndex && wheel12.currentIndex == wheel13.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex &&
-                        wheel22.currentIndex == wheel23.currentIndex) || (wheel31.currentIndex == wheel32.currentIndex && wheel32.currentIndex == wheel33.currentIndex))
-                {
-                  msg.setText("You won big, collect your bet!");
-                  playerMoney += playerBet * 100;
-                  moneyValue.setText(String.valueOf(playerMoney));
-            } else if ((wheel11.currentIndex == wheel12.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex) ||
-                        (wheel31.currentIndex == wheel32.currentIndex))
-                    {
+                    if ((wheel11.currentIndex == wheel12.currentIndex && wheel12.currentIndex == wheel13.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex &&
+                            wheel22.currentIndex == wheel23.currentIndex) || (wheel31.currentIndex == wheel32.currentIndex && wheel32.currentIndex == wheel33.currentIndex)) {
+                        msg.setText("You won big, collect your bet!");
+                        playerMoney += playerBet * 100;
+                        moneyValue.setText(String.valueOf(playerMoney));
+                    } else if ((wheel11.currentIndex == wheel12.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex) ||
+                            (wheel31.currentIndex == wheel32.currentIndex)) {
                         msg.setText("You won small prize");
                         playerMoney += playerBet * 10;
                         moneyValue.setText(String.valueOf(playerMoney));
                     } else {
                         msg.setText("You lose");
-                    playerMoney -= playerBet;
-                    moneyValue.setText(String.valueOf(playerMoney));
+                        playerMoney -= playerBet;
+                        moneyValue.setText(String.valueOf(playerMoney));
                     }
                     btn.setText("Spin");
                     isStarted = false;
@@ -339,6 +338,11 @@ public class MainActivity extends AppCompatActivity {
                     msg.setText("");
                     isStarted = true;
                 }
+            }
+            else
+            {
+                msg.setText("You ran out of Money!!!");
+            }
             }
         });
 
