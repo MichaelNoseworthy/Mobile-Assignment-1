@@ -51,16 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Slot Machine Variables:
-    int playerMoney = 1000;
+    int playerMoney = 100;
     int winnings = 0;
     int jackpot = 5000;
     int turn = 0;
-    int playerBet = 0;
+    int playerBet = 10;
     int winNumber = 0;
     int lossNumber = 0;
     int spinResult;
     //char fruits = ""; //String?
     int winRatio = 0;
+    int defaultMoney = 100;
 
     //types of reels:
     int xwing = 0;
@@ -85,9 +86,15 @@ public class MainActivity extends AppCompatActivity {
     int fps;
 
     private TextView msg;
+    private TextView moneyValue;
+    private TextView betValue;
     private ImageView img1, img2, img3, img4, img5, img6, img7, img8, img9;
-    private Wheel wheel1, wheel2, wheel3, wheel4, wheel5, wheel6, wheel7, wheel8, wheel9;
+    private Wheel wheel11, wheel12, wheel13, wheel21, wheel22, wheel23, wheel31, wheel32, wheel33;
     private Button btn;
+    private Button btnBet10;
+    private Button btnBet50;
+    private Button btnBet100;
+    private Button reset;
     private boolean isStarted;
 
     public static final Random RANDOM = new Random();
@@ -116,39 +123,102 @@ public class MainActivity extends AppCompatActivity {
         img9 = (ImageView) findViewById(R.id.img9);
 
         btn = (Button) findViewById(R.id.Spin);
+        btnBet10 = (Button) findViewById(R.id.BetButton);
+        btnBet50 = (Button) findViewById(R.id.button);
+        btnBet100 = (Button) findViewById(R.id.button3);
+        reset = (Button) findViewById(R.id.button2);
         msg = (TextView) findViewById(R.id.msg);
+        moneyValue = (TextView) findViewById(R.id.MoneyAmount);
+        moneyValue.setText(String.valueOf(playerMoney));
+
+        betValue = (TextView) findViewById(R.id.textView5);
+        betValue.setText(String.valueOf(playerBet));
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playerBet = 10;
+                playerMoney = defaultMoney;
+                moneyValue.setText(String.valueOf(playerMoney));
+                betValue.setText(String.valueOf(playerBet));
+                msg.setText("Game Reset");
+            }
+            });
+        btnBet10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (playerMoney >= 10) {
+                    playerBet = 10;
+                    msg.setText("You bet 10");
+                    betValue.setText(String.valueOf(playerBet));
+                }
+                else
+                    msg.setText("You don't have enough money!");
+            }
+                               });
+
+        btnBet50.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (playerMoney >= 50) {
+                    playerBet = 50;
+                    msg.setText("You bet 50");
+                    betValue.setText(String.valueOf(playerBet));
+                }
+                else
+                msg.setText("You don't have enough money!");
+            }
+        });
+
+        btnBet100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (playerMoney >= 100) {
+                    playerBet = 100;
+                    msg.setText("You bet 100");
+                    betValue.setText(String.valueOf(playerBet));
+                }
+                else
+                msg.setText("You don't have enough money!");
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
         @Override
                 public void onClick(View view) {
             if (isStarted) {
-                wheel1.stopWheel();
-                wheel2.stopWheel();
-                wheel3.stopWheel();
-                wheel4.stopWheel();
-                wheel5.stopWheel();
-                wheel6.stopWheel();
-                wheel7.stopWheel();
-                wheel8.stopWheel();
-                wheel9.stopWheel();
+                wheel11.stopWheel();
+                wheel12.stopWheel();
+                wheel13.stopWheel();
+                wheel21.stopWheel();
+                wheel22.stopWheel();
+                wheel23.stopWheel();
+                wheel31.stopWheel();
+                wheel32.stopWheel();
+                wheel33.stopWheel();
 
-                if (wheel1.currentIndex == wheel2.currentIndex && wheel2.currentIndex == wheel3.currentIndex) //&& wheel4.currentIndex == wheel5.currentIndex &&
-                        //wheel5.currentIndex == wheel6.currentIndex && wheel7.currentIndex == wheel8.currentIndex && wheel8.currentIndex == wheel9.currentIndex)
+                if ((wheel11.currentIndex == wheel12.currentIndex && wheel12.currentIndex == wheel13.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex &&
+                        wheel22.currentIndex == wheel23.currentIndex) || (wheel31.currentIndex == wheel32.currentIndex && wheel32.currentIndex == wheel33.currentIndex))
                 {
                   msg.setText("You won big, collect your bet!");
-            } else if (wheel1.currentIndex == wheel2.currentIndex || wheel2.currentIndex == wheel3.currentIndex || wheel1.currentIndex == wheel3.currentIndex //|| wheel4.currentIndex == wheel5.currentIndex ||
-                       // wheel5.currentIndex == wheel6.currentIndex || wheel4.currentIndex == wheel6.currentIndex || wheel7.currentIndex == wheel8.currentIndex || wheel8.currentIndex == wheel9.currentIndex || wheel7.currentIndex == wheel9.currentIndex
-                )
+                  playerMoney += playerBet * 100;
+                  moneyValue.setText(String.valueOf(playerMoney));
+            } else if ((wheel11.currentIndex == wheel12.currentIndex) || (wheel21.currentIndex == wheel22.currentIndex) ||
+                        (wheel31.currentIndex == wheel32.currentIndex))
                     {
                         msg.setText("You won small prize");
+                        playerMoney += playerBet * 10;
+                        moneyValue.setText(String.valueOf(playerMoney));
                     } else {
                         msg.setText("You lose");
+                    playerMoney -= playerBet;
+                    moneyValue.setText(String.valueOf(playerMoney));
                     }
                     btn.setText("Spin");
                     isStarted = false;
 
                 } else {
-                    wheel1 = new Wheel(new Wheel.WheelListener() {
+                    wheel11 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -158,10 +228,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(0, 200));
-                    wheel1.start();
+                    }, 20, randomLong(0, 200));
+                    wheel11.start();
 
-                    wheel2 = new Wheel(new Wheel.WheelListener() {
+                    wheel12 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -171,10 +241,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel2.start();
+                    }, 20, randomLong(150, 400));
+                    wheel12.start();
 
-                    wheel3 = new Wheel(new Wheel.WheelListener() {
+                    wheel13 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -184,10 +254,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel3.start();
+                    }, 20, randomLong(150, 400));
+                    wheel13.start();
 
-                    wheel4 = new Wheel(new Wheel.WheelListener() {
+                    wheel21 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -197,10 +267,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel4.start();
+                    }, 20, randomLong(150, 400));
+                    wheel21.start();
 
-                    wheel5 = new Wheel(new Wheel.WheelListener() {
+                    wheel22 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -210,10 +280,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel5.start();
+                    }, 20, randomLong(150, 400));
+                    wheel22.start();
 
-                    wheel6 = new Wheel(new Wheel.WheelListener() {
+                    wheel23 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -223,10 +293,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel6.start();
+                    }, 20, randomLong(150, 400));
+                    wheel23.start();
 
-                    wheel7 = new Wheel(new Wheel.WheelListener() {
+                    wheel31 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -236,10 +306,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel7.start();
+                    }, 20, randomLong(150, 400));
+                    wheel31.start();
 
-                    wheel8 = new Wheel(new Wheel.WheelListener() {
+                    wheel32 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -249,10 +319,10 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel8.start();
+                    }, 20, randomLong(150, 400));
+                    wheel32.start();
 
-                    wheel9 = new Wheel(new Wheel.WheelListener() {
+                    wheel33 = new Wheel(new Wheel.WheelListener() {
                         @Override
                         public void newImage(final int img) {
                             runOnUiThread(new Runnable() {
@@ -262,8 +332,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 200, randomLong(150, 400));
-                    wheel9.start();
+                    }, 20, randomLong(150, 400));
+                    wheel33.start();
 
                     btn.setText("Stop");
                     msg.setText("");
