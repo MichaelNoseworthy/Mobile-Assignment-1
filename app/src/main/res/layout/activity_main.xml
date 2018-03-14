@@ -228,6 +228,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.782" />
 
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/img8"
+        android:layout_centerHorizontal="true" />
+
 
     =======
         android:layout_width="wrap_content"
